@@ -8,7 +8,13 @@ export default defineConfig({
   base: './',
   build: {
     outDir: '../dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: './src/index.html',
+        preload: './src/preload.ts'
+      }
+    }
   },
   server: {
     port: 3000,

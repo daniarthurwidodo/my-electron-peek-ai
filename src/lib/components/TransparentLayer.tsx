@@ -13,9 +13,10 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   // Window control functions
-  const minimizeWindow = () => {
+  const minimizeWindow = async () => {
     if (window.electronAPI?.minimizeWindow) {
-      window.electronAPI.minimizeWindow();
+      await window.electronAPI.minimizeWindow();
+      console.log(window.electronAPI.minimizeWindow());
     }
   };
 
@@ -49,39 +50,38 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
 
   return (
     <>
-      {/* Custom Title Bar */}
-      <div className="fixed top-0 left-0 right-0 h-8 bg-gradient-to-r from-gray-100 to-gray-200 border-b border-gray-300 z-[1002] flex items-center justify-between px-2 select-none">
-        <div className="flex items-center">
-          <span className="text-sm font-medium text-gray-700 ml-2">Peek AI</span>
-        </div>
-        <div className="flex space-x-0">
-          <button
-            onClick={minimizeWindow}
-            className="w-8 h-8 flex items-center justify-center hover:bg-yellow-400/20 text-gray-600 hover:text-yellow-600 transition-colors"
-            title="Minimize"
-          >
-            <MinusOutlined className="text-xs" />
-          </button>
-          <button
-            onClick={maximizeWindow}
-            className="w-8 h-8 flex items-center justify-center hover:bg-green-400/20 text-gray-600 hover:text-green-600 transition-colors"
-            title="Maximize"
-          >
-            <BorderOutlined className="text-xs" />
-          </button>
-          <button
-            onClick={closeWindow}
-            className="w-8 h-8 flex items-center justify-center hover:bg-red-500 text-gray-600 hover:text-white transition-colors"
-            title="Close"
-          >
-            <CloseOutlined className="text-xs" />
-          </button>
-        </div>
-      </div>
+      {/* Draggable Title Bar */}
+      <div
+        className="fixed top-0 left-0 right-0 h-8 bg-transparent z-[1002] cursor-move"
+        style={{ WebkitAppRegion: 'drag' } as any}
+      />
 
       {/* Window Controls - Always Visible */}
-      <div className="fixed top-10 right-2 z-[1001] flex space-x-1 bg-white/80 backdrop-blur-sm rounded-md p-1 shadow-lg">
-        {/* App controls can go here if needed */}
+      <div
+        className="fixed top-2 right-2 z-[1001] flex space-x-1 bg-white/80 backdrop-blur-sm rounded-md p-1 shadow-lg"
+        style={{ WebkitAppRegion: 'no-drag' } as any}
+      >
+        <button
+          onClick={() => console.log('Minimize button clicked')}
+          className="w-8 h-8 flex items-center justify-center hover:bg-yellow-400/20 text-gray-600 hover:text-yellow-600 transition-colors rounded"
+          title="Minimize"
+        >
+          <MinusOutlined className="text-xs" />
+        </button>
+        <button
+          onClick={maximizeWindow}
+          className="w-8 h-8 flex items-center justify-center hover:bg-green-400/20 text-gray-600 hover:text-green-600 transition-colors rounded"
+          title="Maximize"
+        >
+          <BorderOutlined className="text-xs" />
+        </button>
+        <button
+          onClick={closeWindow}
+          className="w-8 h-8 flex items-center justify-center hover:bg-red-500 text-gray-600 hover:text-white transition-colors rounded"
+          title="Close"
+        >
+          <CloseOutlined className="text-xs" />
+        </button>
       </div>
 
       {/* App Controls */}

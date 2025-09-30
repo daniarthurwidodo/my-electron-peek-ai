@@ -16,9 +16,11 @@ const createWindow = (): void => {
     width: 800,
     height: 600,
     transparent: true,
-    frame: false,
+    frame: true,
+    resizable: true,
+    titleBarStyle: 'default',
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      preload: path.join(__dirname, '../dist/preload.js'),
       nodeIntegration: true,
       contextIsolation: false,
     },
