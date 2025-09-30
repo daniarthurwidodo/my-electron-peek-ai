@@ -51,6 +51,7 @@ src/
 - Modular component structure
 - TypeScript interfaces for props
 - Clean export patterns via index files
+- **TransparentLayer**: Customizable transparent overlay component with blur effects
 
 ### Services Layer (`src/lib/services/`)
 

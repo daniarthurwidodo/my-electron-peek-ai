@@ -98,8 +98,9 @@ This document outlines the technical specifications for the My Electron Peek AI 
 ### Browser Compatibility
 
 - **Chromium**: Latest stable version (bundled with Electron)
-- **Web Standards**: HTML5, CSS3, ES2020
+- **Web Standards**: HTML5, CSS3, ES2020 with transparency support
 - **Web APIs**: Modern web APIs with fallbacks
+- **Transparency**: CSS backdrop-filter and rgba() support
 
 ### Platform Compatibility
 

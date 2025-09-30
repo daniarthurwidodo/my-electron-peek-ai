@@ -9,4 +9,9 @@ body {
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
   margin: auto;
+  background: transparent;
+}
+
+html {
+  background: transparent;
 }

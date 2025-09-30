@@ -43,6 +43,7 @@ This is an Electron application that provides AI capabilities in a desktop envir
 - **React UI**: Modern React-based user interface with Vite for fast development
 - **Tailwind CSS**: Utility-first CSS framework for rapid styling
 - **Ant Design**: Enterprise-grade React UI component library
+- **Transparent Layers**: Customizable transparent overlays with blur effects
 - **Cross-Platform**: Works on Windows, macOS, and Linux
 - **Hot Reloading**: Development mode with live reloading
 

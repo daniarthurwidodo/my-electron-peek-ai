@@ -12,6 +12,9 @@ My Electron Peek AI is a desktop application built with Electron, React, and Typ
 - **TypeScript**: Full TypeScript support for better development experience
 - **Modular Architecture**: Organized code structure with components and services
 - **React UI**: Modern React-based user interface with Vite for fast development
+- **Transparent Layers**: Customizable transparent overlays with blur effects
+- **Tailwind CSS**: Utility-first CSS framework for rapid styling
+- **Ant Design**: Enterprise-grade React UI component library
 - **Cross-Platform**: Works on Windows, macOS, and Linux
 
 ## Architecture
