@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, screen } from 'electron';
 import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import squirrelStartup from 'electron-squirrel-startup';
@@ -11,13 +11,26 @@ if (squirrelStartup) {
 }
 
 const createWindow = (): void => {
+  // Get the primary display's work area
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width: screenWidth, height: screenHeight } = primaryDisplay.workAreaSize;
+  
+  const windowWidth = 500;
+  const windowHeight = screenHeight; // Use full screen height
+  
+  // Calculate position for right side of screen
+  const x = screenWidth - windowWidth;
+  const y = 0; // Start from top since we're using full height
+  
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: windowWidth,
+    height: windowHeight,
+    x: x, // Position on right side
+    y: y, // Start from top
     // Visual settings to enable true transparency / see-through content
     transparent: true,
-    frame: false,
+    frame: true,
     resizable: true,
     // Ensure complete transparency
     backgroundColor: '#00000000', // Fully transparent background
@@ -28,6 +41,7 @@ const createWindow = (): void => {
       nodeIntegration: false,
       contextIsolation: true,
     },
+    alwaysOnTop: true
   });
 
   // Load the Vite dev server in development or the built files in production
