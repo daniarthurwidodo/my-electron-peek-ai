@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Card, Modal, Slider, Switch } from 'antd';
-import { SettingOutlined, EyeOutlined, EyeInvisibleOutlined, MinusOutlined, CloseOutlined, BorderOutlined } from '@ant-design/icons';
+// icons used elsewhere imported from lucide-react; remove unused ant-design icons
+import { Settings, Eye, EyeOff } from 'lucide-react';
 
 interface TransparentLayerProps {
   children?: React.ReactNode;
@@ -12,29 +13,11 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
   const [blur, setBlur] = useState(1);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
-  // Window control functions
-  const minimizeWindow = async () => {
-    if (window.electronAPI?.minimizeWindow) {
-      await window.electronAPI.minimizeWindow();
-      console.log(window.electronAPI.minimizeWindow());
-    }
-  };
-
-  const maximizeWindow = () => {
-    if (window.electronAPI?.maximizeWindow) {
-      window.electronAPI.maximizeWindow();
-    }
-  };
-
-  const closeWindow = () => {
-    if (window.electronAPI?.closeWindow) {
-      window.electronAPI.closeWindow();
-    }
-  };
+  // No native title bar - window controls removed. Use OS window controls or implement custom ones in UI.
 
   const layerStyle: React.CSSProperties = {
     position: 'fixed',
-    top: '32px',
+    top: '0px',
     left: 0,
     right: 0,
     bottom: 0,
@@ -46,49 +29,18 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
     alignItems: 'center',
     justifyContent: 'center',
     transition: 'all 0.3s ease',
+    pointerEvents: isVisible ? 'auto' : 'none',
+    cursor: 'move',
   };
 
   return (
     <>
-      {/* Draggable Title Bar */}
-      <div
-        className="fixed top-0 left-0 right-0 h-8 bg-transparent z-[1002] cursor-move"
-        style={{ WebkitAppRegion: 'drag' } as any}
-      />
-
-      {/* Window Controls - Always Visible */}
-      <div
-        className="fixed top-2 right-2 z-[1001] flex space-x-1 bg-white/80 backdrop-blur-sm rounded-md p-1 shadow-lg"
-        style={{ WebkitAppRegion: 'no-drag' } as any}
-      >
-        <button
-          onClick={() => console.log('Minimize button clicked')}
-          className="w-8 h-8 flex items-center justify-center hover:bg-yellow-400/20 text-gray-600 hover:text-yellow-600 transition-colors rounded"
-          title="Minimize"
-        >
-          <MinusOutlined className="text-xs" />
-        </button>
-        <button
-          onClick={maximizeWindow}
-          className="w-8 h-8 flex items-center justify-center hover:bg-green-400/20 text-gray-600 hover:text-green-600 transition-colors rounded"
-          title="Maximize"
-        >
-          <BorderOutlined className="text-xs" />
-        </button>
-        <button
-          onClick={closeWindow}
-          className="w-8 h-8 flex items-center justify-center hover:bg-red-500 text-gray-600 hover:text-white transition-colors rounded"
-          title="Close"
-        >
-          <CloseOutlined className="text-xs" />
-        </button>
-      </div>
 
       {/* App Controls */}
-      <div className="fixed top-4 left-4 z-50 flex space-x-2">
+      <div className="fixed top-4 left-4 z-50 flex space-x-2 non-draggable">
         <Button
           type="primary"
-          icon={<SettingOutlined />}
+          icon={<Settings size={16} />}
           onClick={() => setIsSettingsOpen(true)}
           size="small"
         >
@@ -96,7 +48,7 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
         </Button>
         <Button
           type={isVisible ? "default" : "primary"}
-          icon={isVisible ? <EyeInvisibleOutlined /> : <EyeOutlined />}
+          icon={isVisible ? <EyeOff size={16} /> : <Eye size={16} />}
           onClick={() => setIsVisible(!isVisible)}
           size="small"
         >
@@ -105,9 +57,9 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
       </div>
 
       {/* Transparent Layer */}
-      <div style={layerStyle}>
+      <div style={layerStyle} className="draggable-area">
         <Card
-          className="max-w-md w-full mx-4 shadow-2xl"
+          className="max-w-md w-full mx-4 shadow-2xl non-draggable"
           style={{
             backgroundColor: 'rgba(255, 255, 255, 0.95)',
             border: '1px solid rgba(255, 255, 255, 0.2)',
@@ -115,7 +67,7 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
         >
           <div className="text-center">
             <h2 className="text-xl font-bold mb-4 text-gray-800">
-              Transparent Layer Active
+              Transparent Layer Active x
             </h2>
             <p className="text-gray-600 mb-4">
               This content appears on top of the transparent overlay.
@@ -139,6 +91,7 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
         title="Transparent Layer Settings"
         open={isSettingsOpen}
         onCancel={() => setIsSettingsOpen(false)}
+        className="non-draggable"
         footer={[
           <Button key="reset" onClick={() => {
             setOpacity(0.3);
@@ -194,3 +147,4 @@ const TransparentLayer: React.FC<TransparentLayerProps> = ({ children }) => {
 };
 
 export default TransparentLayer;
+

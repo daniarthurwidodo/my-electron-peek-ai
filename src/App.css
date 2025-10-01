@@ -1,9 +1,11 @@
 .App {
   text-align: center;
+  background: transparent;
+  -webkit-app-region: drag;
 }
 
 .App-header {
-  background-color: #282c34;
+  background: transparent;
   padding: 20px;
   color: white;
   min-height: 100vh;
@@ -11,6 +13,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  -webkit-app-region: drag;
 }
 
 h1 {
@@ -20,4 +23,9 @@ h1 {
 
 p {
   font-size: 1.2rem;
+}
+
+/* Ensure buttons and interactive elements are not draggable */
+button, input, textarea, select {
+  -webkit-app-region: no-drag;
 }

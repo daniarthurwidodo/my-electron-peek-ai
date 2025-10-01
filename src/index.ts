@@ -15,14 +15,18 @@ const createWindow = (): void => {
   const mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    // Visual settings to enable true transparency / see-through content
     transparent: true,
-    frame: true,
+    frame: false,
     resizable: true,
-    titleBarStyle: 'default',
+    // Ensure complete transparency
+    backgroundColor: '#00000000', // Fully transparent background
+    titleBarStyle: process.platform === 'darwin' ? 'hidden' : 'default',
+    // Remove vibrancy to allow full transparency
     webPreferences: {
       preload: path.join(__dirname, '../dist/preload.js'),
-      nodeIntegration: true,
-      contextIsolation: false,
+      nodeIntegration: false,
+      contextIsolation: true,
     },
   });
 

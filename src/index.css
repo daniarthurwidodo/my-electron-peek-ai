@@ -4,14 +4,96 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Ensure complete transparency */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  background: transparent !important;
+  background-color: transparent !important;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
 body {
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
     sans-serif;
   margin: auto;
   background: transparent;
+  /* Make the entire body draggable by default */
+  -webkit-app-region: drag;
+  user-select: none; /* Prevent text selection during drag */
+  cursor: move; /* Show move cursor on draggable areas */
 }
 
-html {
-  background: transparent;
+#root {
+  background: transparent !important;
+  height: 100vh;
+  width: 100vw;
+  /* Make root draggable */
+  -webkit-app-region: drag;
+  cursor: move;
+}
+
+/* Override any antd backgrounds that might interfere */
+.ant-app {
+  background: transparent !important;
+  -webkit-app-region: drag;
+  cursor: move;
+}
+
+/* Make interactive elements non-draggable */
+button, input, textarea, select, 
+.ant-btn, .ant-input, .ant-select, .ant-slider, .ant-switch,
+.ant-slider-handle, .ant-slider-track, .ant-slider-rail {
+  -webkit-app-region: no-drag !important;
+  user-select: auto;
+  cursor: pointer !important;
+}
+
+/* Make cards and modals non-draggable for better interaction */
+.ant-card, .ant-modal, .ant-modal-content, .ant-modal-wrap {
+  -webkit-app-region: no-drag !important;
+  cursor: default !important;
+}
+
+/* Title bar specific styles */
+.title-bar {
+  -webkit-app-region: drag !important;
+  cursor: move !important;
+  user-select: none;
+}
+
+.title-bar .non-draggable {
+  -webkit-app-region: no-drag !important;
+  cursor: pointer !important;
+}
+
+/* Draggable area class */
+.draggable-area {
+  -webkit-app-region: drag !important;
+  user-select: none;
+  cursor: move !important;
+}
+
+/* Non-draggable area class */
+.non-draggable {
+  -webkit-app-region: no-drag !important;
+  user-select: auto;
+  cursor: default !important;
+}
+
+/* Specific overrides for interactive elements */
+.non-draggable button,
+.non-draggable .ant-btn {
+  cursor: pointer !important;
+}
+
+.non-draggable input,
+.non-draggable .ant-input {
+  cursor: text !important;
 }

@@ -10,10 +10,7 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: true,
     rollupOptions: {
-      input: {
-        main: './src/index.html',
-        preload: './src/preload.ts'
-      }
+      input: './src/index.html'
     }
   },
   server: {
